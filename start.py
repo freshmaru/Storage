@@ -6,8 +6,8 @@
 
 def multi_play():
     run = True
-    key_set1 = {'right': pg.K_RIGHT, 'left': pg.K_LEFT, 'up': pg.K_UP, 'down': pg.K_DOWN, 'drop': pg.K_RETURN}
-    key_set2 = {'right': pg.K_d, 'left': pg.K_a, 'up': pg.K_w, 'down': pg.K_s, 'drop': pg.K_SPACE}
+    key_set1 = {'right': pg.K_d, 'left': pg.K_a, 'up': pg.K_w, 'down': pg.K_s, 'drop': pg.K_SPACE}
+    key_set2 = {'right': pg.K_RIGHT, 'left': pg.K_LEFT, 'up': pg.K_UP, 'down': pg.K_DOWN, 'drop': pg.K_RETURN}
     player1 = Player('left', key_set1)
     player2 = Player('right', key_set2)
     Player.make_multi(player1, player2)
@@ -18,10 +18,14 @@ def multi_play():
                 run = False
                 pg.display.quit()
                 quit()
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE:
+                    if pause_game() == 1:
+                        run = False
             player1.key_input(event)
             player2.key_input(event)
 
-        player1.move_piece()        #board에서 블럭을 움직이고 탐지한다
+        player1.move_piece()
         player2.move_piece()
         player1.fall_time_check()
         player2.fall_time_check()
@@ -31,6 +35,9 @@ def multi_play():
         pg.display.flip()
         if player1.is_game_over() or player2.is_game_over():
             run = False
-            print("게임 오버 구현하기")
+            if player1.is_game_over():
+                game_over(2, True)
+            elif player2.is_game_over():
+                game_over(1, True)
 
 
