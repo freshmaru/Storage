@@ -2,17 +2,15 @@
 #작성자 : 오기탁
 #조명 : 하이파이
 #라인 삭제를 통해 점수를 구현하는 함수입니다
-
+#아래 함수들을 기반으로 프로젝트에 적용하였습니다
 
 
 score = 0
 
-score += 100
-if attack_stack > 1:
-    score += 100 * (attack_stack * 1.5)
+self.line_score += self.attack_stack
 
-
-font_name = pg.font.match_font('arial')
+ def get_score(self):
+     return self.game.line_score
 
 #화면에 문자를 출력하는 함수
 def draw_text(surf, text, font_size, x, y):
