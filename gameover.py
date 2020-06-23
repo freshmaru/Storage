@@ -20,28 +20,28 @@ def draw_text(surf, text, font_size, x, y):
     
 #적용했을시의 모습입니다
 #게임 오버 스크린을 출력합니다
-#아무 키나 눌렀을 시 메인화면으로 돌아갑니다
 def game_over(value, is_multi=False):
     font1 = pg.font.SysFont("arial", 64, True, False)
     font2 = pg.font.SysFont("arial", 32, True, False)
     txt_surface1 = font1.render("Game Over", True, colors[1])
-    if not is_multi:
+    
+    if not is_multi:                             #멀티가 아닐 경우 점수를 출력합니다
         txt_surface2 = font2.render("deleted line : " + str(value), True, colors[5])
-    else:
+    else:                                       #멀티일 경우 승자를 출력합니다
         if value == 3:
             txt_surface2 = font1.render("Computer Win!", True, colors[5])
         else:
             txt_surface2 = font1.render("Player" + str(value) + " Win", True, colors[5])
+            
     txt_surface3 = font2.render("Press Enter key to return", True, colors[4])
     screen.blit(txt_surface1, (size[0] / 2 - txt_surface1.get_width() / 2, size[1] / 4))
     screen.blit(txt_surface2, (size[0] / 2 - txt_surface2.get_width() / 2, size[1] * 3 / 8))
     screen.blit(txt_surface3, (size[0] / 2 - txt_surface3.get_width() / 2, size[1] / 2))
     pg.display.flip()
-
     run = True
     while run:
         clock.tick(FPS)
-        for event in pg.event.get():
+        for event in pg.event.get():            #아무 키나 눌렀을 시 메인화면으로 돌아갑니다
             if event.type == pg.QUIT:
                 run = False
                 pg.display.quit()
